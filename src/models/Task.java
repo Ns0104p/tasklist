@@ -5,26 +5,31 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import com.google.protobuf.Timestamp;
 
 @Entity
-@Table(name= "tasks")
+@NamedQueries({
+        @NamedQuery(name = "getAllTasks", query = "SELECT m FROM Task AS m ORDER BY m.id DESC")
+})
+@Table(name = "tasks")
 public class Task {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "content",length = 255,nullable =false)
+    @Column(name = "content", length = 255, nullable = false)
     private String content;
 
-    @Column(name= "created_at",nullable =false)
+    @Column(name = "created_at", nullable = false)
     private Timestamp created_at;
 
-    @Column(name="update_at ,nullable =false")
-    private Timestamp update_at;
+    @Column(name = "updated_at" ,nullable =false)
+    private Timestamp updated_at;
 
     public Integer getId() {
         return id;
@@ -50,14 +55,11 @@ public class Task {
         this.created_at = created_at;
     }
 
-    public Timestamp getUpdate_at() {
-        return update_at;
+    public Timestamp getUpdated_at() {
+        return updated_at;
     }
 
-    public void setUpdate_at(Timestamp update_at) {
-        this.update_at = update_at;
+    public void setUpdated_at(Timestamp updated_at) {
+        this.updated_at = updated_at;
     }
-
-
-
 }
